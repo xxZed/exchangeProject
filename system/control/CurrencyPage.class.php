@@ -1,13 +1,12 @@
 <?php
-require('Page.class.php');
+require(SYSTEM . 'util/CurrenciesHandler.class.php');
 
-class CurrencyPage extends Page{
-    public function customCode()
+
+class CurrencyPage{
+    public function __construct()
     {
-        if (CurrenciesHandler::checkCurrency($_GET['code'])) {
-
-            $code = strtoupper($_GET['code']);
-            var_dump($code);
+        if(!CurrenciesHandler::checkAllCurrencies()){
+            CurrenciesHandler::insertCurrency();
         }
     }
 }

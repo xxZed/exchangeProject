@@ -2,6 +2,7 @@
 
 require('ApiHandler.class.php');
 
+
 class CurrenciesHandler
 {
     public static function insertCurrency()
@@ -16,12 +17,16 @@ class CurrenciesHandler
 
     public static function checkCurrency($code)
     {
-        $sql = "SELECT * FROM currency WHERE code = '" . $code . "'";
-        $obj = AppCore::getDB();
-        $query = AppCore::getDB()->sendQuery($sql);
 
-        if (mysqli_num_rows($query) === 1) return true;
-        else return false;
+        if (isset($code)) {
+            $sql = "SELECT * FROM currency WHERE code = '" . $code . "'";
+            $query = AppCore::getDB()->sendQuery($sql);
+
+            if (mysqli_num_rows($query) === 1) return true;
+            else return false;
+        } else {
+            echo "isset(currenciehandler__checkCurrency)";
+        }
     }
 
     public static function checkAllCurrencies()

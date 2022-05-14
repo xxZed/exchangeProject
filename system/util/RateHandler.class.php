@@ -1,10 +1,22 @@
 <?php
 
+require('ApiHandler.class.php');
+
 class RateHandler
 {
     /**
      * latestRate JSON: disclamer, license, timestamp(za datum u onDate), base, array rates
      */
+
+    public static function checkIfEmpty()
+    {
+        $sql = "SELECT * FROM rates";
+        $query = AppCore::getDB()->sendQuery($sql);
+
+        if(mysqli_num_rows($query) < 1) return true;
+        else return false;
+
+    }
 
     public static function checkLatest()
     {
@@ -17,18 +29,16 @@ class RateHandler
     {
         $sql = "INSERT INTO rates (code, onDate, rateValue) VALUES ('" . $code . "','" . $date . "','" . $rateValue . "')";
         AppCore::getDB()->sendQuery($sql);
-
     }
 
     public static function updateLatest()
     {
         $sql = "SELECT code FROM currency";
         $query = AppCore::getDB()->sendQuery($sql);
-        var_dump($query);
 
         $fetchedData = array();
 
-        while ($row = $query->fetch_assoc()){
+        while ($row = $query->fetch_assoc()) {
             $fetchedData[] = $row;
         }
 
@@ -36,9 +46,9 @@ class RateHandler
         $latestRates = apiHandle::latestRate();
         $onDate = date('Y/m/d', $latestRates['timestamp']);
 
-        foreach($latestRates['rates'] as $key => $value){
-            foreach($dbCode as $code){
-                if($key == $code){
+        foreach ($latestRates['rates'] as $key => $value) {
+            foreach ($dbCode as $code) {
+                if ($key == $code) {
                     self::insertLatest($key, $onDate, $value);
                 }
             }
