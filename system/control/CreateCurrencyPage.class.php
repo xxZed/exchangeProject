@@ -2,19 +2,23 @@
 require(SYSTEM . 'util/CurrenciesHandler.class.php');
 require(SYSTEM . 'util/CRUDCurrency.class.php');
 
-class CreateCurrencyPage{
-    public function __construct()
+class CreateCurrencyPage extends AbstractPage{
+    public function code()
     {
-        if(CurrenciesHandler::checkCurrency($_GET['code'])){
-            $code = strtoupper($_GET['code']);
+        $this->templateName = 'currency';
+        
+        if(CurrenciesHandler::checkCurrency($_GET['currency'])){
+            $currency = strtoupper($_GET['currency']);
             
-            if(!CRUDCurrency::checkCurrency($code)){
-                CRUDCurrency::createCurrency($code);
+            if(!CRUDCurrency::checkCurrency($currency)){
+                CRUDCurrency::createCurrency($currency);
             } else {
-                echo "Currency exists";
+                $status = "Currency exists";
+                $this->v['var1'] = $status;
             }
         }else {
-            echo "if(CurrenciesHandler::checkCurrency(GET['code']))";
+            $errorMsg = "if(CurrenciesHandler::checkCurrency(GET['currency']))";
+            $this->v['var1'] = $errorMsg;
         }
     }
 }

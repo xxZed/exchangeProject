@@ -2,8 +2,8 @@
 require(SYSTEM . 'util/CurrenciesHandler.class.php');
 
 
-class CurrencyPage{
-    public function __construct()
+class CurrencyPage extends AbstractPage{
+    public function code()
     {
         if(!CurrenciesHandler::checkAllCurrencies()){
             CurrenciesHandler::insertCurrency();

@@ -1,0 +1,1 @@
+rezultat je <?=$v['var1']?>

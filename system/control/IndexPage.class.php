@@ -2,14 +2,18 @@
 
 
 class IndexPage{
-    public function __construct()
+    public function code()
     {
-        echo ("
+        $this->templateName = 'currency';       
+
+        $status = "
         http://localhost/exchangeProject/index.php?page=Currency " . "<br>" . "
         http://localhost/exchangeProject/index.php?page=Rate" . "<br><br><br>" . "
-        http://localhost/exchangeProject/index.php?page=CreateCurrency&code=USD " . "<br>" . "
-        http://localhost/exchangeProject/index.php?page=DeleteCurrency&code=USD " . "<br>" . "
+        http://localhost/exchangeProject/index.php?page=CreateCurrency&currency=USD " . "<br>" . "
+        http://localhost/exchangeProject/index.php?page=DeleteCurrency&currency=USD " . "<br>" . "
         <br><br> http://localhost/exchangeProject/index.php?page=Rate
-        ");
+        ";
+
+        $this->v['var1'] = $status;
     }
 }

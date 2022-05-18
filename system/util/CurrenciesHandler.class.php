@@ -17,16 +17,11 @@ class CurrenciesHandler
 
     public static function checkCurrency($code)
     {
+        $sql = "SELECT * FROM currency WHERE code = '" . $code . "'";
+        $query = AppCore::getDB()->sendQuery($sql);
 
-        if (isset($code)) {
-            $sql = "SELECT * FROM currency WHERE code = '" . $code . "'";
-            $query = AppCore::getDB()->sendQuery($sql);
-
-            if (mysqli_num_rows($query) === 1) return true;
-            else return false;
-        } else {
-            echo "isset(currenciehandler__checkCurrency)";
-        }
+        if (mysqli_num_rows($query) === 1) return true;
+        else return false;
     }
 
     public static function checkAllCurrencies()

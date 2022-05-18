@@ -3,19 +3,20 @@
 require(SYSTEM . 'util/CurrenciesHandler.class.php');
 require(SYSTEM . 'util/CRUDCurrency.class.php');
 
-class DeleteCurrencyPage{
-    public function __construct()
+class DeleteCurrencyPage extends AbstractPage
+{
+    public function code()
     {
-        if(isset($_GET['code'])){
-            $code = strtoupper($_GET['code']);
-            if(CRUDCurrency::checkCurrency($code)){
-                CRUDCurrency::deleteCurrency($code);
-                echo "Currency deleted";
-            } else {
-                echo $code . " Currency does not exist in crud_currency table";
-            }
-        }else {
-            echo "Cannot find currency code";
+        $this->templateName = 'currency';       
+        $code = strtoupper($_GET['currency']);
+        
+        if (CRUDCurrency::checkCurrency($code)) {
+            CRUDCurrency::deleteCurrency($code);
+            $status = "Currency deleted";
+            $this->v['var1'] = $status;
+        } else {
+            $errorMsg = '' . $code . " Currency does not exist in crud_currency table";
+            $this->v['var1'] = $errorMsg;
         }
     }
 }
