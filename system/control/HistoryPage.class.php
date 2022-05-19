@@ -5,6 +5,9 @@ require(SYSTEM . 'util/HistoryRateHandler.class.php');
 //http://localhost/exchangeProject/index.php?page=History&history=2022-01-03
 //YYYY-MM-DD.json
 
+
+// USE AT YOUR OWN RISK .... 
+
 class HistoryPage extends AbstractPage
 {
     public function code()

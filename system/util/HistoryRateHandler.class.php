@@ -21,7 +21,7 @@ class HistoryRateHandler
     public static function insertHistory($date)
     {
         $history = apiHandle::historyRate($date);
-        $onDate = date('Y/m/d', $history['timestamp']);
+        $onDate = date('Y-m-d', strtotime($date));
 
         foreach ($history['rates'] as $key => $value) {
             self::updateHistory($key, $onDate, $value);
@@ -41,7 +41,7 @@ class HistoryRateHandler
         }
 
         $dbCode = array_column($fetchedData, 'code');
-        $onDate = date('Y/m/d', $history['timestamp']);
+        $onDate = date('Y-m-d', strtotime($date));
 
         foreach ($history['rates'] as $key => $value) {
             foreach ($dbCode as $code) {
@@ -65,7 +65,16 @@ class HistoryRateHandler
                 $rows[] = $row;
             }
             return $rows;
+        } else {
+            self::insertHistory($date);
+
+            if (mysqli_num_rows($query) > 0) {
+                while ($row =  $query->fetch_assoc()) {
+                    $rows[] = $row;
+                }
+                return $rows;
+            }
         }
-        //bug ako ne postoji date u bazi ne znan kako cu to rjesit...
+        //bug ako postoji nakon insertHistory ne vraca nista...
     }
 }
