@@ -1,1 +1,1 @@
-rezultat je <?=$v['var1']?>
+<?=$v['var1']?>

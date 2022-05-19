@@ -8,6 +8,8 @@ abstract class AbstractPage
         $this->show();
     }
 
+    abstract function code();
+    
     function show()
     {
         $v = $this->v ?? [];

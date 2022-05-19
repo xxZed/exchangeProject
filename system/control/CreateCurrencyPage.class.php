@@ -1,6 +1,7 @@
 <?php
 require(SYSTEM . 'util/CurrenciesHandler.class.php');
 require(SYSTEM . 'util/CRUDCurrency.class.php');
+require(SYSTEM . 'model/AbstractPage.class.php');
 
 class CreateCurrencyPage extends AbstractPage{
     public function code()
@@ -12,6 +13,8 @@ class CreateCurrencyPage extends AbstractPage{
             
             if(!CRUDCurrency::checkCurrency($currency)){
                 CRUDCurrency::createCurrency($currency);
+                $status = "Currency created";
+                $this->v['var1'] = $status;
             } else {
                 $status = "Currency exists";
                 $this->v['var1'] = $status;
