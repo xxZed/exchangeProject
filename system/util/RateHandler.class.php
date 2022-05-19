@@ -13,9 +13,8 @@ class RateHandler
         $sql = "SELECT * FROM rates";
         $query = AppCore::getDB()->sendQuery($sql);
 
-        if(mysqli_num_rows($query) < 1) return true;
+        if (mysqli_num_rows($query) < 1) return true;
         else return false;
-
     }
 
     public static function checkLatest()
@@ -27,8 +26,16 @@ class RateHandler
 
     public static function insertLatest($code, $date, $rateValue)
     {
-        $sql = "INSERT INTO rates (code, onDate, rateValue) VALUES ('" . $code . "','" . $date . "','" . $rateValue . "')";
-        AppCore::getDB()->sendQuery($sql);
+        $sql = "SELECT * FROM rates";
+        $query = AppCore::getDB()->sendQuery($sql);
+        //bug ako u table postoji vec nesto uvik ce updateat bez obzira koliki je > x
+        if (mysqli_num_rows($query) > 1) {
+            $sqlUpdate = "UPDATE rates SET onDate= '" . $date . "', rateValue= '" . $rateValue . "' WHERE code = '" . $code . "'";
+            AppCore::getDB()->sendQuery($sqlUpdate);
+        } else {
+            $sqlInsert = "INSERT INTO rates (code, onDate, rateValue) VALUES ('" . $code . "','" . $date . "','" . $rateValue . "')";
+            AppCore::getDB()->sendQuery($sqlInsert);
+        }
     }
 
     public static function updateLatest()
@@ -44,7 +51,7 @@ class RateHandler
 
         $dbCode = array_column($fetchedData, 'code');
         $latestRates = apiHandle::latestRate();
-        $onDate = date('Y/m/d', $latestRates['timestamp']);
+        $onDate = date('Y-m-d', $latestRates['timestamp']);
 
         foreach ($latestRates['rates'] as $key => $value) {
             foreach ($dbCode as $code) {

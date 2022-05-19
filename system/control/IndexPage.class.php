@@ -12,7 +12,9 @@ class IndexPage extends AbstractPage{
         http://localhost/exchangeProject/index.php?page=CreateCurrency&currency=USD " . "<br>" . "
         http://localhost/exchangeProject/index.php?page=DeleteCurrency&currency=USD " . "<br>" . "
         http://localhost/exchangeProject/index.php?page=Convert&currencyCodeOne=USD&currencyCodeTwo=EUR&amount=100" . "<br>" . "
-        <br><br> http://localhost/exchangeProject/index.php?page=Rate
+        <br><br> 
+        http://localhost/exchangeProject/index.php?page=Rate " . "<br>" . "
+        http://localhost/exchangeProject/index.php?page=History&history=2022-01-03
         ";
 
         $this->v['var1'] = $status;
