@@ -5,7 +5,7 @@ require(SYSTEM . 'model/AbstractPage.class.php');
 
 class ReadCurrenciesPage extends AbstractPage{
     public function code(){
-        $this->templateName = 'currency';       
+        $this->templateName = 'readcurrencies';       
 
         $status = CRUDCurrency::readCurrency();
 

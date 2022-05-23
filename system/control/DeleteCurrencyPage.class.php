@@ -7,7 +7,7 @@ class DeleteCurrencyPage extends AbstractPage
 {
     public function code()
     {
-        $this->templateName = 'currency';       
+        $this->templateName = 'deletecurrency';       
         $code = strtoupper($_GET['currency']);
         
         if (CRUDCurrency::checkCurrency($code)) {

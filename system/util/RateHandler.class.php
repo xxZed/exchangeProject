@@ -17,25 +17,10 @@ class RateHandler
         else return false;
     }
 
-    public static function checkLatest()
-    {
-        $sql = "SELECT * FROM rates WHERE onDate = '" . date("Y-m-d") . "'";
-
-        $query = AppCore::getDB()->sendQuery($sql);
-    }
-
     public static function insertLatest($code, $date, $rateValue)
     {
-        $sql = "SELECT * FROM rates";
-        $query = AppCore::getDB()->sendQuery($sql);
-        //bug ako u table postoji vec nesto uvik ce updateat bez obzira koliki je > x
-        if (mysqli_num_rows($query) > 1) {
-            $sqlUpdate = "UPDATE rates SET onDate= '" . $date . "', rateValue= '" . $rateValue . "' WHERE code = '" . $code . "'";
-            AppCore::getDB()->sendQuery($sqlUpdate);
-        } else {
-            $sqlInsert = "INSERT INTO rates (code, onDate, rateValue) VALUES ('" . $code . "','" . $date . "','" . $rateValue . "')";
-            AppCore::getDB()->sendQuery($sqlInsert);
-        }
+        $sqlInsert = "INSERT INTO rates (code, onDate, rateValue) VALUES ('" . $code . "','" . $date . "','" . $rateValue . "')";
+        AppCore::getDB()->sendQuery($sqlInsert);
     }
 
     public static function updateLatest()
@@ -52,18 +37,27 @@ class RateHandler
         $dbCode = array_column($fetchedData, 'code');
         $latestRates = apiHandle::latestRate();
         $onDate = date('Y-m-d', $latestRates['timestamp']);
+        $dateNow = date_create()->format("Y-m-d");
 
-        foreach ($latestRates['rates'] as $key => $value) {
-            foreach ($dbCode as $code) {
-                if ($key == $code) {
-                    self::insertLatest($key, $onDate, $value);
+        $sqlDate = "SELECT onDate FROM rates WHERE onDate = '" . $dateNow . "'";
+        $queryDate = AppCore::getDB()->sendQuery($sqlDate);
+
+        if (mysqli_num_rows($queryDate) > 1) {
+            throw new Exception("Rates already updated");
+        } else {
+            foreach ($latestRates['rates'] as $key => $value) {
+                foreach ($dbCode as $code) {
+                    if ($key == $code) {
+                        self::insertLatest($key, $onDate, $value);
+                    }
                 }
             }
-        }
+        }        
     }
+
     public static function getRateSelected($code)
     {
-        $sql = "SELECT rateValue FROM rates where code = ('" . $code . "') AND onDate = ('" . date("Y-m-d") . "')";
+        $sql = "SELECT code, rateValue FROM rates where code = ('" . $code . "') AND onDate = ('" . date("Y-m-d") . "')";
 
         $fetchedData = array();
         $query = AppCore::getDB()->sendQuery($sql);
@@ -72,15 +66,6 @@ class RateHandler
             $fetchedData[] = $row;
         }
 
-        if (sizeof($fetchedData) === 0) {
-            print 'No fetched data in array';
-        } else {
-            true;
-        }
-
-        $databaseRate = array_column($fetchedData, 'rateValue');
-
-        foreach ($databaseRate as $rate)
-            return number_format((float)$rate, 5, '.', '');
+        return $fetchedData;
     }
 }

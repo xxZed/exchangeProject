@@ -10,26 +10,28 @@ class ConverterHandler
         $sql = "SELECT rateValue FROM rates WHERE code = '" . $currencyNameTwo . "'";
         $rateTwo = AppCore::getDB()->sendQuery($sql);
 
+        $rowsOne = [];
+        $rowsTwo = [];
+
         if ($currencyNameOne == "USD") {
-            $rowsOne = [];
-            foreach ($rowsOne['0'] as $key => $value) {
+            while ($row =  $rateTwo->fetch_assoc()) {
+                $rowsTwo[] = $row;
+            }
+            foreach ($rowsTwo['0'] as $key => $value) {
                 $rateTwo = floatval($value);
             }
             $amountDollar = (1.0 / 1.0) * (float)$amount;
-            $convertedAmount = $amountDollar *  $rateTwo;
+            $convertedAmount = $amountDollar *  (float)$rateTwo;
         } else if ($currencyNameTwo == "USD") {
-            $rowsOne = [];
             while ($row =  $rateOne->fetch_assoc()) {
                 $rowsOne[] = $row;
             }
             foreach ($rowsOne['0'] as $key => $value) {
                 $rateOne = floatval($value);
             }
-            $amountDollar = (1.0 / $rateOne) * $amount;
+            $amountDollar = (1.0 / (float)$rateOne) * (float)$amount;
             $convertedAmount = $amountDollar *  1;
         } else {
-            $rowsOne = [];
-            $rowsTwo = [];
             while ($row =  $rateOne->fetch_assoc()) {
                 $rowsOne[] = $row;
             }
@@ -42,8 +44,8 @@ class ConverterHandler
             foreach ($rowsTwo['0'] as $key => $value) {
                 $rateTwo = floatval($value);
             }
-            $amountDollar = (1.0 / $rateOne) * $amount;
-            $convertedAmount = $amountDollar *  $rateTwo;
+            $amountDollar = (1.0 / (float)$rateOne) * (float)$amount;
+            $convertedAmount = $amountDollar *  (float)$rateTwo;
         }
 
         return $convertedAmount;

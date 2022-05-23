@@ -12,19 +12,17 @@ class HistoryPage extends AbstractPage
 {
     public function code()
     {
-        $this->templateName = 'currency';
+        $this->templateName = 'history';
 
-        $date = $_GET['history'];
+        //$date = $_GET['history'];
 
         if (HistoryRateHandler::checkIfEmpty()) {
-            HistoryRateHandler::insertHistory($date);
-            $status = HistoryRateHandler::searchByDate($date);
-            
-            $this->v['var1'] = json_encode($status);
+            $errorMsg = "History empty in database";           
+            $this->v['var1'] = json_encode($errorMsg);
         } else {
-            $status = HistoryRateHandler::searchByDate($date);
-           
+            $status = HistoryRateHandler::readHistory();            
             $this->v['var1'] = json_encode($status);
+            
         }
     }
 }
