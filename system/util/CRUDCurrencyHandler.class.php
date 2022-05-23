@@ -1,5 +1,5 @@
 <?php
-
+require('ApiHandler.class.php');
 
 class CRUDCurrency
 {

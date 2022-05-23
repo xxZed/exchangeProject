@@ -18,7 +18,7 @@ class HistorybyDatePage extends AbstractPage
 
         $status = HistoryRateHandler::searchByDate($date);
 
-        if(!empty($status)){
+        if (!empty($status)) {
             $this->v['var1'] = json_encode($status);
         } else {
             $errorMsg = "No rates with $date date";

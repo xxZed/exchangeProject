@@ -17,12 +17,11 @@ class HistoryPage extends AbstractPage
         //$date = $_GET['history'];
 
         if (HistoryRateHandler::checkIfEmpty()) {
-            $errorMsg = "History empty in database";           
+            $errorMsg = "History empty in database";
             $this->v['var1'] = json_encode($errorMsg);
         } else {
-            $status = HistoryRateHandler::readHistory();            
+            $status = HistoryRateHandler::readHistory();
             $this->v['var1'] = json_encode($status);
-            
         }
     }
 }

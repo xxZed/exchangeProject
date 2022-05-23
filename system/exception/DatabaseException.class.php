@@ -1,8 +1,6 @@
 <?php
 
-require_once('GeneralException.class.php');
-
-class DatabaseException extends GeneralException
+class DatabaseException extends Exception
 {
     public function __construct($msg = '', $errcode = 0, $previous = null)
     {
@@ -11,10 +9,10 @@ class DatabaseException extends GeneralException
 
     public function show()
     {
-        return('Error: '. $this->getMessage() .
+        return ('Error: ' . $this->getMessage() .
             'File: ' . $this->getFile() .
-            'Line: ' .$this->getLine() .
-            'StackTrace: ' .$this->getTraceAsString()
+            'Line: ' . $this->getLine() .
+            'StackTrace: ' . $this->getTraceAsString()
         );
     }
 }

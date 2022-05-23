@@ -12,8 +12,9 @@ class HistoryRateHandler
         else return false;
     }
 
-    static function searchByDate($date){
-        $sql = "SELECT * FROM rates WHERE onDate = '".$date."' ";
+    static function searchByDate($date)
+    {
+        $sql = "SELECT * FROM rates WHERE onDate = '" . $date . "' ";
         $query = AppCore::getDB()->sendQuery($sql);
 
         while ($row = $query->fetch_assoc()) {
@@ -35,5 +36,5 @@ class HistoryRateHandler
 
         if (mysqli_num_rows($query) > 1) return $rows;
         else return false;
-    } 
+    }
 }

@@ -1,8 +1,7 @@
 <?php
 
-require_once('GeneralException.class.php');
 
-class SystemException extends GeneralException
+class SystemException extends Exception
 {
     public function __construct($msg = '', $errcode = 0, $previous = null)
     {

@@ -52,7 +52,7 @@ class RateHandler
                     }
                 }
             }
-        }        
+        }
     }
 
     public static function getRateSelected($code)

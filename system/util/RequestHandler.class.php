@@ -7,7 +7,7 @@ class RequestHandler
     public function __construct($className)
     {
         $className = $className . 'Page';
-        $classPath = SYSTEM . 'control/'. $className . '.class.php';
+        $classPath = SYSTEM . 'control/' . $className . '.class.php';
 
         if (!preg_match('/^[a-z0-9_]+$/i', $className) || !file_exists($classPath)) {
             throw new Exception();

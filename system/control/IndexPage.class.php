@@ -1,14 +1,15 @@
 <?php
 require(SYSTEM . 'model/AbstractPage.class.php');
 
-class IndexPage extends AbstractPage{
+class IndexPage extends AbstractPage
+{
     public function code()
     {
-        $this->templateName = 'currency';       
+        $this->templateName = 'currency';
 
         $status = "
         http://localhost/exchangeProject/index.php?page=Currency " . "<br>" . "
-        ". "<br><br><br>" ."
+        " . "<br><br><br>" . "
         http://localhost/exchangeProject/index.php?page=ReadCurrencies " . "<br>" . "
         http://localhost/exchangeProject/index.php?page=CreateCurrency&currency=EUR " . "<br>" . "
         http://localhost/exchangeProject/index.php?page=ReadCurrency&currency=EUR " . "<br>" . "

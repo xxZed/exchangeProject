@@ -18,7 +18,7 @@ class RateSelectedPage extends AbstractPage
 
         $status = RateHandler::getRateSelected($currencyCode);
 
-        if(!empty($status)){
+        if (!empty($status)) {
             $this->v['var1'] = json_encode($status);
         } else {
             $errorMsg = "No currency & rate with $currencyCode name";

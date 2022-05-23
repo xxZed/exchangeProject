@@ -9,7 +9,7 @@ abstract class AbstractPage
     }
 
     abstract function code();
-    
+
     function show()
     {
         $v = $this->v ?? [];
