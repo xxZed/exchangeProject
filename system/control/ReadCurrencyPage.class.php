@@ -3,8 +3,16 @@ require(SYSTEM . 'util/CurrenciesHandler.class.php');
 require(SYSTEM . 'util/CRUDCurrencyHandler.class.php');
 require(SYSTEM . 'model/AbstractPage.class.php');
 
+/**
+ * ReadCurrenciesPage klasa za ispis odredenih currencies-a
+ * 
+ * @author Zdeslav Nazlic, Marin Marincic
+ */
 class ReadCurrencyPage extends AbstractPage
 {
+    /**
+     * code() funkcija za prikaz odredenog currency-a te rezutat salje svom tpl.php
+     */
     public function code()
     {
         $this->templateName = 'readcurrency';

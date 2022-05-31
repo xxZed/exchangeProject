@@ -1,8 +1,14 @@
 <?php
 require('ApiHandler.class.php');
 
+/**
+ * CurrenciesHandler klasa obraduje podatke za currency table
+ */
 class CurrenciesHandler
 {
+    /**
+     * insertCurrency() ubacuje podatke unutar currency table iz API-a
+     */
     public static function insertCurrency()
     {
         $currency = apiHandle::allCurrencies();
@@ -13,6 +19,13 @@ class CurrenciesHandler
         }
     }
 
+    /**
+     * checkCurrency() provjerava je li currency postoji, ako postoji nece ga ponovno upisat, ako ne postoji upisat ce novi currency
+     * 
+     * @param string $code
+     * 
+     * @return boolean
+     */
     public static function checkCurrency($code)
     {
         $sql = "SELECT * FROM currency WHERE code = '" . $code . "'";
@@ -22,6 +35,11 @@ class CurrenciesHandler
         else return false;
     }
 
+    /**
+     * provjerava je li currency table prazan
+     * 
+     * @return boolean
+     */
     public static function checkAllCurrencies()
     {
         $sql = "SELECT * FROM currency";

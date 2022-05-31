@@ -1,8 +1,17 @@
 <?php
 require(SYSTEM . 'model/AbstractPage.class.php');
 
+/**
+ * IndexPage je klasa koja prikazuje sve moguce radnje koji projekt moze napraviti
+ * 
+ * @author Zdeslav Nazlic, Marin Marincic
+ */
 class IndexPage extends AbstractPage
 {
+    /**
+     * code() funkcija koja u svom statusu sadrzi sve moguce URL-ove koje korisnik moze napraviti
+     * status se salje u svoj tpl.php file
+     */
     public function code()
     {
         $this->templateName = 'currency';

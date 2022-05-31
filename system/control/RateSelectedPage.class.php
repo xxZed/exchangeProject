@@ -6,10 +6,17 @@ require(SYSTEM . 'util/RateHandler.class.php');
 //YYYY-MM-DD.json
 
 
-// USE AT YOUR OWN RISK .... 
-
+/**
+ * RateSelectedPage klasa za obradu selektriranog currency-a
+ * 
+ * @author Zdeslav Nazlic, Marin Marincic
+ */
 class RateSelectedPage extends AbstractPage
 {
+    /**
+     * pomocu GET uzima 3letter code iz URL-a te svom tpl.php file-u salje
+     * sve podatke vezane za currency koji selektiramo
+     */
     public function code()
     {
         $this->templateName = 'rateselected';

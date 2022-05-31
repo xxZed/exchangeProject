@@ -5,11 +5,17 @@ require(SYSTEM . 'util/HistoryRateHandler.class.php');
 //http://localhost/exchangeProject/index.php?page=History&history=2022-01-03
 //YYYY-MM-DD.json
 
-
-// USE AT YOUR OWN RISK .... 
-
+/**
+ * HistorybyDatePage upravlja sa povijesti rate-sa iz baze podataka
+ * 
+ * @author Zdeslav Nazlic, Marin Marincic
+ */
 class HistorybyDatePage extends AbstractPage
 {
+    /**
+     * code() pomocu GET uzima datum iz URL-a te poziva HistoryRateHandler
+     * errore ili rezultat pretrazivanja se salje u historydate.tpl.php
+     */
     public function code()
     {
         $this->templateName = 'historybydate';

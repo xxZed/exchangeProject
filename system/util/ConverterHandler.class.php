@@ -1,9 +1,20 @@
 <?php
 require('ApiHandler.class.php');
 
-
+/**
+ * klasa ConverterHandler sadrzi funkciju za konvertiranje jedne rate u drugi i zeljenu kolicinu
+ */
 class ConverterHandler
 {
+    /**
+     * Covert funkcija pretvara jednan currency u drugi pomocu USD-a
+     * 
+     * @param string $currencyNameOne
+     * @param string $currencyNameTwo
+     * @param int $amount
+     * 
+     * @return float $convertedAmount
+     */
     public static function Convert($currencyNameOne, $currencyNameTwo, $amount)
     {
         $sql = "SELECT rateValue FROM rates WHERE code = '" . $currencyNameOne . "'";

@@ -2,6 +2,10 @@
 
 require(SYSTEM . 'exception/DatabaseException.class.php');
 
+
+/**
+ * MySQLiDatabase klasa koja inicijalizira bazu podataka,selektira i konektira se s bazome te salje upite na bazu
+ */
 class MySQLiDatabase
 {
     public $MySQLi;
@@ -11,6 +15,16 @@ class MySQLiDatabase
     protected $password;
     protected $database;
 
+    /**
+     * __construct() sprema hosta, user, password i database u protected varijable
+     * takoder pozvia connect i selectDatabase funkcije
+     * 
+     * @param string $host
+     * @param string $user
+     * @param string $password
+     * @param string $database
+     * 
+     */
     public function __construct($host, $user, $password, $database)
     {
         $this->host = $host;
@@ -22,6 +36,10 @@ class MySQLiDatabase
         $this->selectDatabase();
     }
 
+    /**
+     * connect() funkcija se konektira na localhost bazu podataka
+     * ako se ne spoji izbacuje DatabaseException error
+     */
     public function connect()
     {
         $this->MySQLi = new MySQLi($this->host, $this->user, $this->password, $this->database);
@@ -30,6 +48,13 @@ class MySQLiDatabase
             throw new DatabaseException('Connection error, failed to connect to your database');
         }
     }
+
+    /**
+     * sendQuery() salje sql query upite na bazu podataka
+     * @param string $sql
+     * 
+     * @return Object $this->result
+     */
     public function sendQuery($sql)
     {
         $this->result = $this->MySQLi->query($sql);
@@ -41,6 +66,10 @@ class MySQLiDatabase
         return $this->result;
     }
 
+     /**
+     * selectDatabase() funkcija selektira bazu podataka
+     * ako se ne selektira izbacuje DatabaseException error
+     */
     public function selectDatabase()
     {
         if ($this->MySQLi->select_db($this->database) === false) {

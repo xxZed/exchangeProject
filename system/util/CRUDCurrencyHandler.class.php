@@ -1,14 +1,27 @@
 <?php
 require('ApiHandler.class.php');
 
+/**
+ * CRUDCurrency je klasa za administrativne obrade podataka koje sami korisnik unosi
+ */
 class CRUDCurrency
 {
+    /**
+     * createCurrency stvara novi currency kojeg korisnik unosi
+     * 
+     * @param string $currency
+     */
     public static function createCurrency($currency)
     {
         $sql = "INSERT INTO currency (code) VALUES ('" . $currency . "')";
         AppCore::getDB()->sendQuery($sql);
     }
 
+    /**
+     * readCurrency() ispisuje sve iz currency table
+     * 
+     * @return array $rows
+     */
     public static function readCurrency()
     {
         $sql = "SELECT * FROM currency";
@@ -22,6 +35,11 @@ class CRUDCurrency
         return $rows;
     }
 
+    /**
+     * getCurrency() ispisuje currency kojeg korisnik zatrazi
+     * 
+     * @return array $cur
+     */
     public static function getCurrency($currencyCode)
     {
         $sql = "SELECT * FROM currency WHERE code = '" . $currencyCode . "'";
@@ -34,12 +52,24 @@ class CRUDCurrency
         return $cur;
     }
 
+    /**
+     * deleteCurrency deleta currency iz table-a
+     * 
+     * @param string $currency
+     */
     public static function deleteCurrency($currency)
     {
         $sql = "DELETE FROM currency WHERE code = '" . $currency . "'";
         AppCore::getDB()->sendQuery($sql);
     }
 
+    /**
+     * checkCurrency provjerava za trazeni currency je li postoji
+     * 
+     * @param string $currency
+     * 
+     * @return boolean
+     */
     public static function checkCurrency($currency)
     {
         $sql = "SELECT * FROM currency WHERE code = '" . $currency . "'";

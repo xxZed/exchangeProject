@@ -2,12 +2,20 @@
 
 require('ApiHandler.class.php');
 
+/**
+ * klasa RateHandler obraduje podatke vezane za rate valuta
+ */
 class RateHandler
 {
     /**
      * latestRate JSON: disclamer, license, timestamp(za datum u onDate), base, array rates
      */
 
+    /**
+     * checkIfEmpty() provjerava je li rates tablica u bazi podataka prazna
+     * 
+     * @return boolean 
+     * */ 
     public static function checkIfEmpty()
     {
         $sql = "SELECT * FROM rates";
@@ -17,12 +25,23 @@ class RateHandler
         else return false;
     }
 
+    /**
+     * insertLatest() inserta currency code, na datum koji je rate zabiljezen (timestamp) i ratu valute u to vrijeme
+     * 
+     * @param string $code
+     * @param Date $date
+     * @param float $rateValue
+     * 
+     */
     public static function insertLatest($code, $date, $rateValue)
     {
         $sqlInsert = "INSERT INTO rates (code, onDate, rateValue) VALUES ('" . $code . "','" . $date . "','" . $rateValue . "')";
         AppCore::getDB()->sendQuery($sqlInsert);
     }
 
+    /**
+     * updateLatest() ubacuje najnovije rate za rates table
+     */
     public static function updateLatest()
     {
         $sql = "SELECT code FROM currency";
@@ -55,6 +74,13 @@ class RateHandler
         }
     }
 
+    /**
+     * getRateSelected() uzima selektirani currency kojeg korisnik moze zatrazit
+     * 
+     * @param string $code
+     * 
+     * @return array $fetchedData
+     */
     public static function getRateSelected($code)
     {
         $sql = "SELECT code, rateValue FROM rates where code = ('" . $code . "') AND onDate = ('" . date("Y-m-d") . "')";

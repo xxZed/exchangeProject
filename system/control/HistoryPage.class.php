@@ -6,10 +6,18 @@ require(SYSTEM . 'util/HistoryRateHandler.class.php');
 //YYYY-MM-DD.json
 
 
-// USE AT YOUR OWN RISK .... 
 
+/**
+ * HistoryPage je klasa koja ispisuje cijelu povijest rates table-a iz baze podataka
+ * 
+ * @author Zdeslav Nazlic, Marin Marincic
+ */
 class HistoryPage extends AbstractPage
 {
+    /**
+     * code() provjerava je li baza ispunjena ako nije salje errorMsg u svoj tpl.php file gdje se ispisuje, 
+     * ako postoji salje se rezultat, tj cijela povijest.
+     */
     public function code()
     {
         $this->templateName = 'history';
